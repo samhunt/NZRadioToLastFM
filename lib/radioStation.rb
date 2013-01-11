@@ -31,12 +31,17 @@ class RadioStation
     @oldArtist = @newArtist
     @oldSong = @newSong
   
-    @newSong = recent["audio"][0]["title"][0]
+    #makes sure that the last character of the song name is not a *
+    newSong = recent["audio"][0]["title"][0].strip
+    if(newSong[-1,1] == "*")
+      newSong = newSong[0..-2]
+    end
+    @newSong = newSong
     @newArtist = recent["audio"][0]["artist"][0]
     
     lastFm =LastFm.new
     yourRecentTracks = lastFm.getRecentTrack(@username) #gets your most recent track from lastFm
-    
+
     #Makes sure that you are not scrobbling the same song as before.
     if (@newArtist != @oldArtist && @newSong != @oldSong && yourRecentTracks != "" && @newArtist != yourRecentTracks['artist'] && @newSong != yourRecentTracks['song'])
       puts "NEW SONG SCROBBLING!"

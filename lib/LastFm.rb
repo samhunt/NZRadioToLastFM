@@ -39,13 +39,14 @@ class LastFm
     }
     xml = connection.get("", query)
     doc = XmlSimple.xml_in(xml)
-
     if(doc["status"] == "ok")
       track = Hash.new
       track['artist'] = doc["recenttracks"][0]["track"][0]["artist"][0]["content"]
       track['song'] = doc["recenttracks"][0]["track"][0]["name"][0]
       return track
     end
+    puts "Status: Failed"
+    puts doc["error"][0]["code"][0]+": " +doc["error"][0]["content"][0]
     return ""
   end
   
@@ -74,7 +75,7 @@ class LastFm
     realArgs[:password] = password
     realArgs[:api_key] = @apiKey
     
-    realArgs.each{|k,v| realArgs[k] = v.to_s.sub(/\&/, "&amp;").strip.delete "*".encode('utf-8')}
+    realArgs.each{|k,v| realArgs[k] = URI.decode(v.to_s.strip.encode('utf-8'))}
     
     sig = signatureMobile(realArgs)
     realArgs[:api_sig] = sig
@@ -110,7 +111,7 @@ class LastFm
     realArgs[:password] = password
     realArgs[:api_key] = @apiKey
     
-    realArgs.each{|k,v| realArgs[k] = v.to_s.strip.delete "*".encode('utf-8')}
+    realArgs.each{|k,v| realArgs[k] = URI.decode(v.to_s.strip.encode('utf-8'))}
     
     sig = signatureMobile(realArgs)
     realArgs[:api_sig] = sig

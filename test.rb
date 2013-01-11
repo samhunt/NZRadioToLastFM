@@ -13,8 +13,6 @@ require_relative 'lib/radioStation.rb'
 API_KEY = ''
 SECRET = ''
 
-
-
 ## Edit Array size to suit your needs.
 radioStations = Array.new(2)
 ## edit url, username and password. username and password is you lastfm credentials.
@@ -28,7 +26,6 @@ radioStations[0] = RadioStation.new(
 radioStations[1] = RadioStation.new(
   :url => "http://www.theedge.co.nz/Portals/0/Inbound/NowPlaying/NowPlaying.aspx",
   :username => "yourLastFmUsername", :password => "yourLastFmPassword")
-## FINISH EDIT ##
 
 
 puts "Started."
