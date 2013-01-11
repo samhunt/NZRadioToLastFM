@@ -23,9 +23,8 @@ class Request
 
     if args
       # TODO: What about keys without value?
-      url.query = args.map { |k,v| "%s=%s" % [URI.encode(k.to_s), URI.encode(v.to_s)] }.join("&")
+      url.query = args.map { |k,v| "%s=%s" % [URI.encode(k.to_s).sub(/&/, "%26"), URI.encode(v.to_s).sub(/&/, "%26")] }.join("&")
     end
-
     case method
     when "get"
       req = Net::HTTP::Get.new(url.request_uri)

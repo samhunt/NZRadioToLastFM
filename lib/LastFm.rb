@@ -84,9 +84,7 @@ class LastFm
     realArgs[:username] = username
     realArgs[:password] = password
     realArgs[:api_key] = @apiKey
-    
-    realArgs.each{|k,v| realArgs[k] = URI.decode(v.to_s.strip.encode('utf-8'))}
-    
+    realArgs.each{|k,v| realArgs[k] = URI.unescape(v.to_s.strip)}
     sig = signatureMobile(realArgs)
     realArgs[:api_sig] = sig
     
@@ -124,7 +122,7 @@ class LastFm
     realArgs[:password] = password
     realArgs[:api_key] = @apiKey
     
-    realArgs.each{|k,v| realArgs[k] = URI.decode(v.to_s.strip.encode('utf-8'))}
+    realArgs.each{|k,v| realArgs[k] = URI.unescape(v.to_s.strip.encode('utf-8'))}
     
     sig = signatureMobile(realArgs)
     realArgs[:api_sig] = sig
