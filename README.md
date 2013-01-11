@@ -5,6 +5,7 @@ Scrobbles songs played by some NZ radio stations to last.fm
 
 Usage
 -----
+As is shown in test.rb 
     radioStation =  RadioStation.new( :url => "url", :username => "lastFmUsername", :password => "lastFmPassword")
     radioStation.scrobbleCurrentSong
 
