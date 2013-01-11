@@ -1,7 +1,7 @@
 NZRadioToLastFM
 ===============
 
-Scrobbles songs played by mediaworks radio stations in New Zealand to last.fm
+Scrobbles songs played by mediaworks[1] radio stations in New Zealand to last.fm
 
 Usage
 -----
