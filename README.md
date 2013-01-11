@@ -1,7 +1,7 @@
 NZRadioToLastFM
 ===============
 
-Scrobbles songs played by mediaworks[1] radio stations in New Zealand to last.fm
+Scrobbles songs played by [MediaWorks radio stations][1] in New Zealand to last.fm
 
 Usage
 -----
@@ -19,3 +19,4 @@ Simple Last.Fm api calls
     lastFm.scrobble(username, password, args={}) #scrobbles the current song (as long as it includes a title and artist
     lastFm.updateNowPlaying(username, password, args={}) # same as for scrobble, but updates the now playing song.
 
+[1]: http://www.mediaworks.co.nz/Radio/OurRadioStations.aspx "MediaWorks radio stations"
