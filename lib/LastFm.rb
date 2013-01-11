@@ -39,10 +39,17 @@ class LastFm
     }
     xml = connection.get("", query)
     doc = XmlSimple.xml_in(xml)
+
     if(doc["status"] == "ok")
       track = Hash.new
-      track['artist'] = doc["recenttracks"][0]["track"][0]["artist"][0]["content"]
-      track['song'] = doc["recenttracks"][0]["track"][0]["name"][0]
+      if(doc["recenttracks"][0]["page"] == "0")
+        puts username + " has not listened to any tracks"
+        track['artist'] = ""
+        track['song'] = ""
+      else
+        track['artist'] = doc["recenttracks"][0]["track"][0]["artist"][0]["content"]
+        track['song'] = doc["recenttracks"][0]["track"][0]["name"][0]
+      end
       return track
     end
     puts "Status: Failed"
@@ -67,7 +74,10 @@ class LastFm
     end
     
     session_key = getMobileSession(username, password)
-    
+    if(session_key == "failed")
+      puts "scrobble failed."
+      return
+    end
     realArgs = args.select_keys(:artist, :track, :timestamp, :album, :context, :streamId, :chosenByUser, :trackNumber, :mbid, :duration, :albumArtist)
     realArgs[:method] = "track.scrobble"
     realArgs[:sk] = session_key
@@ -103,7 +113,10 @@ class LastFm
     end
     
     session_key = getMobileSession(username, password)
-    
+    if(session_key == "failed")
+      puts "updateNowPlaying failed."
+      return
+    end
     realArgs = args.select_keys(:artist, :track, :album, :context, :trackNumber, :mbid, :duration, :albumArtist)
     realArgs[:method] = "track.updateNowPlaying"
     realArgs[:sk] = session_key
@@ -145,7 +158,12 @@ class LastFm
     }
     xml = connection.post("", query)
     doc = XmlSimple.xml_in(xml)
-    return doc["session"][0]["key"][0]
+    if(doc["status"] == "failed")
+      puts "getMobileSession failed, code: " + doc["error"][0]["code"] + " content: " + doc["error"][0]["content"]
+      return "failed"
+    else
+      return doc["session"][0]["key"][0]
+    end
   end
   
   # gets the signature for the specific api call.

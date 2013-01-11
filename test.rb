@@ -1,11 +1,9 @@
 require 'rubygems'
 require_relative 'lib/radioStation.rb'
 
-
-
 ## MAKE SURE THAT YOU ADD YOUR APPLICATION TO YOUR LAST.FM ACCOUNT BEFORE YOU START.
-## 
-## http://www.last.fm/api/auth?api_key=API_KEY 
+##
+## http://www.last.fm/api/auth?api_key=API_KEY
 ##
 ## API_KEY is what you put for API_KEY below
 ##
