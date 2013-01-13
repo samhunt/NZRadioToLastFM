@@ -52,8 +52,8 @@ class LastFm
       end
       return track
     end
-    puts "Status: Failed"
-    puts doc["error"][0]["code"][0]+": " +doc["error"][0]["content"][0]
+    puts "\tGet recent track failed"
+    puts "\t"+doc["error"][0]["code"][0]+": " +doc["error"][0]["content"][0]
     return ""
   end
   
@@ -65,7 +65,7 @@ class LastFm
   # also make sure that there is no extra arguments.
   def scrobble(username, password, args = {})
     if(args[:artist].to_s.strip.length == 0 || args[:track].to_s.strip.length == 0)
-      puts "To scrobble a song you must include an artist, and a track name.\n Scrobbling failed."
+      puts "\tTo scrobble a song you must include an artist, and a track name.\t\n Scrobbling failed."
       return
     end
     
@@ -75,7 +75,7 @@ class LastFm
     
     session_key = getMobileSession(username, password)
     if(session_key == "failed")
-      puts "scrobble failed."
+      puts "\tScrobbling failed."
       return
     end
     realArgs = args.select_keys(:artist, :track, :timestamp, :album, :context, :streamId, :chosenByUser, :trackNumber, :mbid, :duration, :albumArtist)
@@ -93,9 +93,9 @@ class LastFm
     doc = XmlSimple.xml_in(xml)
 
     if(doc["status"] != "ok")
-      puts "Failed: scrobble."
+      puts "\tScrobbling failed."
     else
-      puts "Success: scrobble."
+      puts "\tScrobbling was successful."
     end
   end
   
@@ -112,7 +112,7 @@ class LastFm
     
     session_key = getMobileSession(username, password)
     if(session_key == "failed")
-      puts "updateNowPlaying failed."
+      puts "\tNow playing update failed."
       return
     end
     realArgs = args.select_keys(:artist, :track, :album, :context, :trackNumber, :mbid, :duration, :albumArtist)
@@ -132,9 +132,9 @@ class LastFm
     doc = XmlSimple.xml_in(xml)
     
     if(doc["status"] != "ok")
-      puts "Failed: update now listening."
+      puts "\tNow playing update failed."
     else
-      puts "Success: update now listening."
+      puts "\tNow playing update was successful."
     end
   end
   
@@ -157,7 +157,7 @@ class LastFm
     xml = connection.post("", query)
     doc = XmlSimple.xml_in(xml)
     if(doc["status"] == "failed")
-      puts "getMobileSession failed, code: " + doc["error"][0]["code"] + " content: " + doc["error"][0]["content"]
+      puts "\tgetMobileSession failed, code: " + doc["error"][0]["code"] + " content: " + doc["error"][0]["content"]
       return "failed"
     else
       return doc["session"][0]["key"][0]

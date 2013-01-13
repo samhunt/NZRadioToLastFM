@@ -37,6 +37,13 @@ class Request
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.port == 443)
+    # set content length
+    if(req.body == nil)
+      req['Content-length'] = 0
+    else
+      req['Content-length'] = req.body.length
+    end
+        
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
     res = http.start() { |conn| conn.request(req) }

@@ -1,7 +1,7 @@
 require 'rubygems'
-require 'mechanize'
 
 require_relative 'LastFm.rb'
+require_relative 'request.rb'
 
 # simple radio object which has the address of the radio stations current song 
 # the lastFm username
@@ -19,14 +19,14 @@ class RadioStation
   # If there is. Scrobble it and making it the now playing song.
   # Otherwise just exit.
   def scrobbleCurrentSong
-    agent = Mechanize.new
-    agent.user_agent_alias = 'Mac Safari'
-    page = agent.get @url
+    #agent = Mechanize.new
+    #agent.user_agent_alias = 'Mac Safari'
+    #page = agent.get @url
 
-    body = page.body
+    connection = Request.new(@url)
+    xml = connection.post("").strip
     #get the title and artist
-    page = agent.get @url
-    recent = XmlSimple.xml_in(body)
+    recent = XmlSimple.xml_in(xml)
   
     @oldArtist = @newArtist
     @oldSong = @newSong
@@ -45,7 +45,7 @@ class RadioStation
     #Makes sure that you are not scrobbling the same song as before.
     if (@newArtist != @oldArtist && @newSong != @oldSong && yourRecentTracks != "" && @newArtist != yourRecentTracks['artist'] && @newSong != yourRecentTracks['song'])
       puts "NEW SONG SCROBBLING!"
-      puts @username + ": " + @newArtist + " - " + @newSong
+      puts "\t"+@username + ": " + @newArtist + " - " + @newSong
       
       #scrobble and now playing
       lastFm.updateNowPlaying(@username, @password, {:artist => @newArtist, :track => @newSong})
