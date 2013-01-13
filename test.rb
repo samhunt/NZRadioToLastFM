@@ -25,8 +25,7 @@ radioStations[1] = RadioStation.new(
   :url => "http://www.theedge.co.nz/Portals/0/Inbound/NowPlaying/NowPlaying.aspx",
   :username => "yourLastFmUsername", :password => "yourLastFmPassword")
 
-
-puts "Started."
+puts "Scrobbling mediaworks radio stations started."
 # Continue scrobbling forever.
 while (true)
   #scrobble all radioStations current songs.
