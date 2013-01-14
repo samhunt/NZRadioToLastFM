@@ -2,6 +2,7 @@ NZRadioToLastFM
 ===============
 
 Scrobbles songs played by [MediaWorks radio stations][1] in New Zealand to last.fm
+An example of this code in action can be found a [TheEdgeNZ last.fm][2]
 
 Usage
 -----
@@ -20,3 +21,4 @@ Simple Last.Fm api calls
     lastFm.updateNowPlaying(username, password, args={}) # same as for scrobble, but updates the now playing song.
 
 [1]: http://www.mediaworks.co.nz/Radio/OurRadioStations.aspx "MediaWorks radio stations"
+[2]: http://www.last.fm/user/TheEdgeNZ
