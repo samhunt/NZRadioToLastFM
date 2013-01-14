@@ -2,6 +2,7 @@ NZRadioToLastFM
 ===============
 
 Scrobbles songs played by [MediaWorks radio stations][1] in New Zealand to last.fm
+
 An example of this code in action can be found a [TheEdgeNZ last.fm][2]
 
 Usage
